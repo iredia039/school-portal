@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import ThemeToggle from "@/app/components/ThemeToggle";
 
 const students = [
   { id: 1, name: "John Doe", email: "john@school.edu", class: "Grade 10A", status: "Active" },
@@ -66,15 +67,16 @@ export default function AdminPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Navbar */}
       <nav className="bg-purple-700 text-white px-6 py-4 flex items-center justify-between shadow">
         <div className="flex items-center gap-2 font-bold text-lg">
           🏫 <span>School Portal</span>
           <span className="bg-purple-500 text-xs px-2 py-0.5 rounded-full ml-2">Admin</span>
         </div>
-        <div className="flex items-center gap-4 text-sm">
+        <div className="flex items-center gap-3 text-sm">
           <span className="hidden sm:block opacity-80">Admin User 👋</span>
+          <ThemeToggle />
           <button
             onClick={() => {
               localStorage.removeItem("token");
@@ -91,20 +93,20 @@ export default function AdminPage() {
       <main className="max-w-5xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-800">Admin Dashboard</h1>
-          <p className="text-gray-500 text-sm mt-1">Manage students, staff, and school announcements.</p>
+          <h1 className="text-2xl font-bold text-gray-800 dark:text-white">Admin Dashboard</h1>
+          <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Manage students, staff, and school announcements.</p>
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-2 mb-6 border-b border-gray-200">
+        <div className="flex gap-2 mb-6 border-b border-gray-200 dark:border-gray-700">
           {tabs.map((tab) => (
             <button
               key={tab.key}
               onClick={() => setActiveTab(tab.key)}
               className={`flex items-center gap-1.5 px-4 py-2 text-sm font-medium border-b-2 transition -mb-px ${
                 activeTab === tab.key
-                  ? "border-purple-600 text-purple-700"
-                  : "border-transparent text-gray-500 hover:text-gray-700"
+                  ? "border-purple-600 text-purple-700 dark:text-purple-400"
+                  : "border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
               }`}
             >
               {tab.icon} {tab.label}
@@ -124,18 +126,18 @@ export default function AdminPage() {
               ].map((stat) => (
                 <div
                   key={stat.label}
-                  className="bg-white rounded-xl shadow-sm p-4 flex flex-col items-center gap-1 border border-gray-100"
+                  className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 flex flex-col items-center gap-1 border border-gray-100 dark:border-gray-700"
                 >
                   <span className="text-2xl">{stat.icon}</span>
-                  <span className="text-xl font-bold text-gray-800">{stat.value}</span>
-                  <span className="text-xs text-gray-500 text-center">{stat.label}</span>
+                  <span className="text-xl font-bold text-gray-800 dark:text-white">{stat.value}</span>
+                  <span className="text-xs text-gray-500 dark:text-gray-400 text-center">{stat.label}</span>
                 </div>
               ))}
             </div>
 
             {/* Recent Activity */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
-              <h2 className="text-lg font-semibold text-gray-800 mb-4">Recent Activity</h2>
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-5">
+              <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">Recent Activity</h2>
               <div className="flex flex-col gap-3">
                 {[
                   { action: "New student registered", name: "Emma Clarke", time: "2 hours ago", icon: "➕" },
@@ -143,13 +145,13 @@ export default function AdminPage() {
                   { action: "Attendance marked for", name: "Grade 11B", time: "6 hours ago", icon: "✅" },
                   { action: "New announcement posted by", name: "Admin", time: "Yesterday", icon: "📢" },
                 ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-3 text-sm py-2 border-b border-gray-50 last:border-0">
+                  <div key={i} className="flex items-center gap-3 text-sm py-2 border-b border-gray-50 dark:border-gray-700 last:border-0">
                     <span className="text-lg">{item.icon}</span>
                     <div>
-                      <span className="text-gray-600">{item.action} </span>
-                      <span className="font-medium text-gray-800">{item.name}</span>
+                      <span className="text-gray-600 dark:text-gray-300">{item.action} </span>
+                      <span className="font-medium text-gray-800 dark:text-white">{item.name}</span>
                     </div>
-                    <span className="ml-auto text-xs text-gray-400">{item.time}</span>
+                    <span className="ml-auto text-xs text-gray-400 dark:text-gray-500">{item.time}</span>
                   </div>
                 ))}
               </div>
@@ -159,22 +161,22 @@ export default function AdminPage() {
 
         {/* Students Tab */}
         {activeTab === "students" && (
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-5">
             <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
-              <h2 className="text-lg font-semibold text-gray-800">All Students</h2>
+              <h2 className="text-lg font-semibold text-gray-800 dark:text-white">All Students</h2>
               <input
                 type="text"
                 placeholder="Search students..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="border border-gray-300 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-purple-300 w-56"
+                className="border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-1.5 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-300 w-56"
               />
             </div>
 
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="text-left text-gray-500 border-b border-gray-100">
+                  <tr className="text-left text-gray-500 dark:text-gray-400 border-b border-gray-100 dark:border-gray-700">
                     <th className="pb-2 font-medium">Name</th>
                     <th className="pb-2 font-medium">Email</th>
                     <th className="pb-2 font-medium">Class</th>
@@ -185,29 +187,29 @@ export default function AdminPage() {
                 <tbody>
                   {filteredStudents.length === 0 ? (
                     <tr>
-                      <td colSpan={5} className="py-8 text-center text-gray-400">
+                      <td colSpan={5} className="py-8 text-center text-gray-400 dark:text-gray-500">
                         No students found.
                       </td>
                     </tr>
                   ) : (
                     filteredStudents.map((s) => (
-                      <tr key={s.id} className="border-b border-gray-50 last:border-0">
-                        <td className="py-3 font-medium text-gray-700">{s.name}</td>
-                        <td className="py-3 text-gray-500">{s.email}</td>
-                        <td className="py-3 text-gray-500">{s.class}</td>
+                      <tr key={s.id} className="border-b border-gray-50 dark:border-gray-700 last:border-0">
+                        <td className="py-3 font-medium text-gray-700 dark:text-gray-200">{s.name}</td>
+                        <td className="py-3 text-gray-500 dark:text-gray-400">{s.email}</td>
+                        <td className="py-3 text-gray-500 dark:text-gray-400">{s.class}</td>
                         <td className="py-3">
                           <span
                             className={`px-2 py-0.5 rounded-full text-xs font-semibold ${
                               s.status === "Active"
-                                ? "bg-green-100 text-green-700"
-                                : "bg-gray-100 text-gray-500"
+                                ? "bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400"
+                                : "bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400"
                             }`}
                           >
                             {s.status}
                           </span>
                         </td>
                         <td className="py-3">
-                          <button className="text-purple-600 hover:underline text-xs font-medium">
+                          <button className="text-purple-600 dark:text-purple-400 hover:underline text-xs font-medium">
                             View
                           </button>
                         </td>
@@ -222,9 +224,9 @@ export default function AdminPage() {
 
         {/* Announcements Tab */}
         {activeTab === "announcements" && (
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-5">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-gray-800">Announcements</h2>
+              <h2 className="text-lg font-semibold text-gray-800 dark:text-white">Announcements</h2>
               <button
                 onClick={() => setShowForm(!showForm)}
                 className="bg-purple-600 text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-purple-700 transition"
@@ -235,20 +237,20 @@ export default function AdminPage() {
 
             {/* New Announcement Form */}
             {showForm && (
-              <div className="bg-purple-50 border border-purple-100 rounded-xl p-4 mb-5 flex flex-col gap-3">
-                <h3 className="text-sm font-semibold text-purple-700">Post New Announcement</h3>
+              <div className="bg-purple-50 dark:bg-purple-900/20 border border-purple-100 dark:border-purple-800 rounded-xl p-4 mb-5 flex flex-col gap-3">
+                <h3 className="text-sm font-semibold text-purple-700 dark:text-purple-400">Post New Announcement</h3>
                 <input
                   type="text"
                   placeholder="Announcement title..."
                   value={newAnnouncement.title}
                   onChange={(e) => setNewAnnouncement({ ...newAnnouncement, title: e.target.value })}
-                  className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-300 w-full"
+                  className="border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-300 w-full"
                 />
                 <div className="flex items-center gap-3">
                   <select
                     value={newAnnouncement.audience}
                     onChange={(e) => setNewAnnouncement({ ...newAnnouncement, audience: e.target.value })}
-                    className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-300 bg-white"
+                    className="border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-300"
                   >
                     <option value="All">All</option>
                     <option value="Students">Students</option>
@@ -269,17 +271,17 @@ export default function AdminPage() {
               {announcements.map((a) => (
                 <div
                   key={a.id}
-                  className="flex items-center justify-between border border-gray-100 rounded-lg px-4 py-3"
+                  className="flex items-center justify-between border border-gray-100 dark:border-gray-700 rounded-lg px-4 py-3"
                 >
                   <div>
-                    <p className="text-sm font-medium text-gray-700">{a.title}</p>
-                    <p className="text-xs text-gray-400 mt-0.5">
+                    <p className="text-sm font-medium text-gray-700 dark:text-gray-200">{a.title}</p>
+                    <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">
                       {a.date} · Audience: {a.audience}
                     </p>
                   </div>
                   <button
                     onClick={() => deleteAnnouncement(a.id)}
-                    className="text-red-400 hover:text-red-600 text-xs font-medium ml-4"
+                    className="text-red-400 hover:text-red-600 dark:hover:text-red-300 text-xs font-medium ml-4"
                   >
                     Delete
                   </button>

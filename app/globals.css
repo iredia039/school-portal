@@ -3,3 +3,17 @@
 * {
   box-sizing: border-box;
 }
+
+/* Smooth color transitions when switching themes */
+*,
+*::before,
+*::after {
+  transition-property: background-color, border-color, color;
+  transition-duration: 200ms;
+  transition-timing-function: ease;
+}
+
+/* Override transition for elements that shouldn't animate (e.g. transforms, layout) */
+*:where([class*="transition"]) {
+  transition-duration: inherit;
+}

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import ThemeToggle from "@/app/components/ThemeToggle";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -56,25 +57,32 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-blue-50">
-      <div className="bg-white rounded-2xl shadow-md p-8 w-full max-w-md">
+    <main className="min-h-screen flex items-center justify-center bg-blue-50 dark:bg-gray-900">
+      {/* Theme toggle — top right corner */}
+      <div className="fixed top-4 right-4">
+        <div className="bg-blue-600 rounded-lg p-0.5">
+          <ThemeToggle />
+        </div>
+      </div>
+
+      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-8 w-full max-w-md">
         <div className="flex flex-col items-center mb-6">
           <div className="bg-blue-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl mb-2">
             🏫
           </div>
-          <h1 className="text-2xl font-bold text-gray-800">Log In</h1>
-          <p className="text-gray-500 text-sm">Access your school portal</p>
+          <h1 className="text-2xl font-bold text-gray-800 dark:text-white">Log In</h1>
+          <p className="text-gray-500 dark:text-gray-400 text-sm">Access your school portal</p>
         </div>
 
         {error && (
-          <div className="bg-red-50 text-red-600 text-sm rounded-lg px-4 py-3 mb-4 border border-red-200">
+          <div className="bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 text-sm rounded-lg px-4 py-3 mb-4 border border-red-200 dark:border-red-800">
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Email Address
             </label>
             <input
@@ -83,12 +91,12 @@ export default function LoginPage() {
               value={form.email}
               onChange={handleChange}
               placeholder="you@school.edu"
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm"
+              className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Password
             </label>
             <input
@@ -97,7 +105,7 @@ export default function LoginPage() {
               value={form.password}
               onChange={handleChange}
               placeholder="••••••••"
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm"
+              className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm"
             />
           </div>
 
@@ -110,9 +118,9 @@ export default function LoginPage() {
           </button>
         </form>
 
-        <p className="text-center text-sm text-gray-500 mt-6">
+        <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-6">
           Don&apos;t have an account?{" "}
-          <Link href="/signup" className="text-blue-600 hover:underline font-medium">
+          <Link href="/signup" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
             Sign Up
           </Link>
         </p>

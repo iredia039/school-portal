@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import ThemeToggle from "@/app/components/ThemeToggle";
 
 const subjects = [
   { name: "Mathematics", grade: "A", score: 92, teacher: "Mr. Johnson" },
@@ -30,15 +31,17 @@ export default function DashboardPage() {
       router.replace("/admin");
     }
   }, [router]);
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Navbar */}
       <nav className="bg-blue-600 text-white px-6 py-4 flex items-center justify-between shadow">
         <div className="flex items-center gap-2 font-bold text-lg">
           🏫 <span>School Portal</span>
         </div>
-        <div className="flex items-center gap-4 text-sm">
+        <div className="flex items-center gap-3 text-sm">
           <span className="hidden sm:block opacity-80">Hello, John Doe 👋</span>
+          <ThemeToggle />
           <button
             onClick={() => {
               localStorage.removeItem("token");
@@ -55,8 +58,8 @@ export default function DashboardPage() {
       <main className="max-w-5xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-800">Student Dashboard</h1>
-          <p className="text-gray-500 text-sm mt-1">
+          <h1 className="text-2xl font-bold text-gray-800 dark:text-white">Student Dashboard</h1>
+          <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
             Welcome back, John! Here&apos;s your academic overview.
           </p>
         </div>
@@ -71,23 +74,23 @@ export default function DashboardPage() {
           ].map((stat) => (
             <div
               key={stat.label}
-              className="bg-white rounded-xl shadow-sm p-4 flex flex-col items-center gap-1 border border-gray-100"
+              className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 flex flex-col items-center gap-1 border border-gray-100 dark:border-gray-700"
             >
               <span className="text-2xl">{stat.icon}</span>
-              <span className="text-xl font-bold text-gray-800">{stat.value}</span>
-              <span className="text-xs text-gray-500">{stat.label}</span>
+              <span className="text-xl font-bold text-gray-800 dark:text-white">{stat.value}</span>
+              <span className="text-xs text-gray-500 dark:text-gray-400">{stat.label}</span>
             </div>
           ))}
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
           {/* Grades Table */}
-          <div className="md:col-span-2 bg-white rounded-xl shadow-sm border border-gray-100 p-5">
-            <h2 className="text-lg font-semibold text-gray-800 mb-4">My Grades</h2>
+          <div className="md:col-span-2 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-5">
+            <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">My Grades</h2>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="text-left text-gray-500 border-b border-gray-100">
+                  <tr className="text-left text-gray-500 dark:text-gray-400 border-b border-gray-100 dark:border-gray-700">
                     <th className="pb-2 font-medium">Subject</th>
                     <th className="pb-2 font-medium">Teacher</th>
                     <th className="pb-2 font-medium">Score</th>
@@ -96,16 +99,16 @@ export default function DashboardPage() {
                 </thead>
                 <tbody>
                   {subjects.map((s) => (
-                    <tr key={s.name} className="border-b border-gray-50 last:border-0">
-                      <td className="py-3 font-medium text-gray-700">{s.name}</td>
-                      <td className="py-3 text-gray-500">{s.teacher}</td>
-                      <td className="py-3 text-gray-700">{s.score}%</td>
+                    <tr key={s.name} className="border-b border-gray-50 dark:border-gray-700 last:border-0">
+                      <td className="py-3 font-medium text-gray-700 dark:text-gray-200">{s.name}</td>
+                      <td className="py-3 text-gray-500 dark:text-gray-400">{s.teacher}</td>
+                      <td className="py-3 text-gray-700 dark:text-gray-200">{s.score}%</td>
                       <td className="py-3">
                         <span
                           className={`px-2 py-0.5 rounded-full text-xs font-semibold ${
                             s.grade.startsWith("A")
-                              ? "bg-green-100 text-green-700"
-                              : "bg-yellow-100 text-yellow-700"
+                              ? "bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400"
+                              : "bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-400"
                           }`}
                         >
                           {s.grade}
@@ -119,13 +122,13 @@ export default function DashboardPage() {
           </div>
 
           {/* Announcements */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
-            <h2 className="text-lg font-semibold text-gray-800 mb-4">Announcements</h2>
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-5">
+            <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">Announcements</h2>
             <div className="flex flex-col gap-3">
               {announcements.map((a) => (
                 <div key={a.title} className="border-l-4 border-blue-400 pl-3 py-1">
-                  <p className="text-sm font-medium text-gray-700">{a.title}</p>
-                  <p className="text-xs text-gray-400 mt-0.5">{a.date}</p>
+                  <p className="text-sm font-medium text-gray-700 dark:text-gray-200">{a.title}</p>
+                  <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">{a.date}</p>
                 </div>
               ))}
             </div>
@@ -133,8 +136,8 @@ export default function DashboardPage() {
         </div>
 
         {/* Timetable */}
-        <div className="mt-6 bg-white rounded-xl shadow-sm border border-gray-100 p-5">
-          <h2 className="text-lg font-semibold text-gray-800 mb-4">Today&apos;s Timetable</h2>
+        <div className="mt-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-5">
+          <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">Today&apos;s Timetable</h2>
           <div className="flex flex-wrap gap-3">
             {[
               { time: "8:00 AM", subject: "Mathematics", room: "Room 101" },
@@ -145,11 +148,11 @@ export default function DashboardPage() {
             ].map((t) => (
               <div
                 key={t.time}
-                className="bg-blue-50 rounded-lg px-4 py-3 flex flex-col gap-0.5 min-w-[130px]"
+                className="bg-blue-50 dark:bg-blue-900/30 rounded-lg px-4 py-3 flex flex-col gap-0.5 min-w-[130px]"
               >
-                <span className="text-xs text-blue-500 font-semibold">{t.time}</span>
-                <span className="text-sm font-medium text-gray-700">{t.subject}</span>
-                <span className="text-xs text-gray-400">{t.room}</span>
+                <span className="text-xs text-blue-500 dark:text-blue-400 font-semibold">{t.time}</span>
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-200">{t.subject}</span>
+                <span className="text-xs text-gray-400 dark:text-gray-500">{t.room}</span>
               </div>
             ))}
           </div>
